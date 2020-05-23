@@ -53,6 +53,32 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           Divider(),
+          ListTile(
+            leading: Icon(
+              Icons.store_mall_directory,
+            ),
+            title: Text(
+              'Gerenciar Produtos',
+              style: TextStyle(fontSize: 18),
+            ),
+            onTap: () {
+              Navigator.of(context)
+                  .pushReplacementNamed(AppRoutes.PRODUCT_CRUD);
+            },
+          ),
+          Divider(),
+          Container(
+            margin: EdgeInsets.only(top: MediaQuery.of(context).size.height - 444),
+            height: 60,
+            color: Colors.black,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(Icons.copyright, color: Colors.white,),
+                Text('Israel Rodrigues - Momy Store', style: TextStyle(color: Colors.white),),
+              ],
+            ),
+          ),
         ],
       ),
     );

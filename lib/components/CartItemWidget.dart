@@ -12,7 +12,7 @@ class CartItemWidget extends StatelessWidget {
     return Dismissible(
       key: ValueKey(cartItem.id),
       background: Container(
-        color: Colors.yellow[600],  
+        color: Colors.yellow[600],
         child: Icon(
           Icons.delete,
           color: Colors.black,
@@ -26,8 +26,40 @@ class CartItemWidget extends StatelessWidget {
         ),
       ),
       direction: DismissDirection.endToStart,
-      onDismissed: (_){
-        Provider.of<Cart>(context,listen: false).removeItem(cartItem.productId);
+      confirmDismiss: (_) {
+        return showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text('tem certeza?'),
+            content: Text('Deseja realmente remover o item do carrinho?'),
+            actions: <Widget>[
+              RaisedButton(
+                color: Colors.green,
+                child: Text(
+                  'Não',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.of(ctx).pop(false);
+                },
+              ),
+              RaisedButton(
+                color: Colors.red,
+                child: Text(
+                  'Sim',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.of(ctx).pop(true);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+      onDismissed: (_) {
+        Provider.of<Cart>(context, listen: false)
+            .removeItem(cartItem.productId);
       },
       child: Card(
         elevation: 4,

@@ -21,7 +21,7 @@ class ProductCrudScreen extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pushNamed(AppRoutes.PRODUCT_FORMS);
             },
-          )
+          ),
         ],
       ),
       drawer: AppDrawer(),

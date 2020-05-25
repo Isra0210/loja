@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shop/providers/Product.dart';
+import 'package:shop/providers/products.dart';
+import 'package:shop/utils/AppRoutes.dart';
 
 class ProductCrudItem extends StatelessWidget {
   final Product product;
@@ -24,13 +27,47 @@ class ProductCrudItem extends StatelessWidget {
                   color: Colors.blueAccent,
                 ),
                 onPressed: () {
+                  Navigator.of(context)
+                      .pushNamed(AppRoutes.PRODUCT_FORMS, arguments: product);
                 }),
             IconButton(
               icon: Icon(
                 Icons.delete,
                 color: Colors.red,
               ),
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                    title: Text('tem certeza?'),
+                    content:
+                        Text('Deseja realmente remover o item do carrinho?'),
+                    actions: <Widget>[
+                      RaisedButton(
+                        color: Colors.green,
+                        child: Text(
+                          'Não',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        onPressed: () => Navigator.of(ctx).pop(false),
+                      ),
+                      RaisedButton(
+                        color: Colors.red,
+                        child: Text(
+                          'Sim',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        onPressed: () => Navigator.of(ctx).pop(true),
+                      ),
+                    ],
+                  ),
+                ).then((value) {
+                  if (value) {
+                    Provider.of<Products>(context, listen: false)
+                        .deleteProduct(product.id);
+                  }
+                });
+              },
             ),
           ],
         ),

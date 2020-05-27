@@ -9,7 +9,7 @@ class AppDrawer extends StatelessWidget {
         children: <Widget>[
           AppBar(
             title: Text(
-              'Bem Vindo!',
+              'Momy Store',
             ),
             backgroundColor: Colors.black,
           ),
@@ -68,14 +68,22 @@ class AppDrawer extends StatelessWidget {
           ),
           Divider(),
           Container(
-            margin: EdgeInsets.only(top: MediaQuery.of(context).size.height - 444),
+            margin:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height - 444),
             height: 60,
             color: Colors.black,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Icon(Icons.copyright, color: Colors.white,),
-                Text('Israel Rodrigues - Momy Store', style: TextStyle(color: Colors.white),),
+                Icon(
+                  Icons.copyright,
+                  color: Colors.white,
+                ),
+                Text('Israel Rodrigues - ',style: TextStyle(color: Colors.white),),
+                Text(
+                  'Momy Store',
+                  style: TextStyle(color: Colors.yellow),
+                ),
               ],
             ),
           ),

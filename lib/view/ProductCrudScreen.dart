@@ -6,6 +6,11 @@ import 'package:shop/providers/products.dart';
 import 'package:shop/utils/AppRoutes.dart';
 
 class ProductCrudScreen extends StatelessWidget {
+
+    Future<void> _refreshProducts(BuildContext context){
+      return Provider.of<Products>(context, listen: false).loadProducts();
+    }
+
   @override
   Widget build(BuildContext context) {
     final products = Provider.of<Products>(context);
@@ -25,15 +30,18 @@ class ProductCrudScreen extends StatelessWidget {
         ],
       ),
       drawer: AppDrawer(),
-      body: Padding(
-        padding: EdgeInsets.all(10),
-        child: ListView.builder(
-          itemCount: products.itemCount,
-          itemBuilder: (ctx, i) => Column(
-            children: <Widget>[
-              ProductCrudItem(products.items[i]),
-              Divider(color: Colors.black),
-            ],
+      body: RefreshIndicator(
+        onRefresh: () => _refreshProducts(context),
+        child: Padding(
+          padding: EdgeInsets.all(10),
+          child: ListView.builder(
+            itemCount: products.itemCount,
+            itemBuilder: (ctx, i) => Column(
+              children: <Widget>[
+                ProductCrudItem(products.items[i]),
+                Divider(color: Colors.black),
+              ],
+            ),
           ),
         ),
       ),

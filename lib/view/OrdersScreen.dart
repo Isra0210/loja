@@ -28,7 +28,7 @@ class OrdersScreen extends StatelessWidget {
         builder: (ctx, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.yellow),),
             );
           }else if(snapshot.error != null){
             return Center(
@@ -39,6 +39,7 @@ class OrdersScreen extends StatelessWidget {
             return Consumer<Orders>(
               builder: (ctx, orders, child) {
               return RefreshIndicator(
+                color: Colors.yellow,
                 onRefresh: () => _refreshOrder(context),
                 child: ListView.builder(
                   itemCount: orders.itemsCount,

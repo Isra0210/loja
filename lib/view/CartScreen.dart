@@ -84,7 +84,7 @@ class _OrderButtonState extends State<OrderButton> {
   Widget build(BuildContext context) {
     return FlatButton(
       child: _isLoading
-          ? CircularProgressIndicator()
+          ? CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.yellow),)
           : Text(
               'COMPRAR',
               style:

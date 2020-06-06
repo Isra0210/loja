@@ -146,7 +146,7 @@ class _ProductFormsScreenState extends State<ProductFormsScreen> {
       ),
       body: _isLoading
           ? Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.yellow),),
             )
           : Padding(
               padding: EdgeInsets.all(20),

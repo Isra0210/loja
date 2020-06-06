@@ -39,7 +39,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
       appBar: AppBar(
         title: Center(
           child: Text(
-            'Momy Store',
+            'Camila Cosméticos',
             textAlign: TextAlign.center,
           ),
         ),
@@ -85,7 +85,9 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
       ),
       body: _isLoading
           ? Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                valueColor: new AlwaysStoppedAnimation<Color>(Colors.yellow),
+              ),
             )
           : ProductGrid(_showFavoriteOnly),
       drawer: AppDrawer(),

@@ -9,7 +9,7 @@ class AppDrawer extends StatelessWidget {
         children: <Widget>[
           AppBar(
             title: Text(
-              'Momy Store',
+              'Camila Cosméticos',
             ),
             backgroundColor: Colors.black,
           ),
@@ -23,7 +23,7 @@ class AppDrawer extends StatelessWidget {
               style: TextStyle(fontSize: 18),
             ),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed(AppRoutes.HOME);
+              Navigator.of(context).pushReplacementNamed(AppRoutes.PRODUCT_HOME);
             },
           ),
           Divider(),
@@ -81,7 +81,7 @@ class AppDrawer extends StatelessWidget {
                 ),
                 Text('Israel Rodrigues - ',style: TextStyle(color: Colors.white),),
                 Text(
-                  'Momy Store',
+                  'Camila Cosméticos',
                   style: TextStyle(color: Colors.yellow),
                 ),
               ],

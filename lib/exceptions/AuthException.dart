@@ -7,7 +7,6 @@ class AuthException implements Exception {
     "INVALID_PASSWORD": "E-mail ou senha inválido!",
     "USER_DISABLED": "Usuário desativado!",
   };
-
   final String key;
 
   const AuthException(this.key);

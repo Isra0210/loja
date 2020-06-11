@@ -28,16 +28,16 @@ class OrdersScreen extends StatelessWidget {
         builder: (ctx, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.yellow),),
+              child: CircularProgressIndicator(
+                valueColor: new AlwaysStoppedAnimation<Color>(Colors.yellow),
+              ),
             );
-          }else if(snapshot.error != null){
+          } else if (snapshot.error != null) {
             return Center(
               child: Text('Ocorreu um erro inesperado!'),
             );
-          } 
-          else {
-            return Consumer<Orders>(
-              builder: (ctx, orders, child) {
+          } else {
+            return Consumer<Orders>(builder: (ctx, orders, child) {
               return RefreshIndicator(
                 color: Colors.yellow,
                 onRefresh: () => _refreshOrder(context),

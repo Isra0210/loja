@@ -1,5 +1,3 @@
-//testar conexão
-
 import '../utils/AppRoutes.dart';
 import 'package:flutter/material.dart';
 import 'package:shop/utils/AppRoutes.dart';
@@ -17,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Duration(seconds: 3),
       () => setState(
         () {
-          Navigator.of(context).pushReplacementNamed(AppRoutes.AUTH_HOME);
+          Navigator.of(context).pushReplacementNamed(AppRoutes.AUTH_OR_HOME);
         },
       ),
     );

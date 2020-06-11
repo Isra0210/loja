@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
 import 'package:shop/providers/Auth.dart';
 import 'package:shop/providers/Cart.dart';
 import 'package:shop/providers/orders.dart';
 import 'package:shop/providers/products.dart';
+
 import 'package:shop/utils/AppRoutes.dart';
+
 import 'package:shop/view/AuthOrHomeScreen.dart';
+import 'package:shop/view/AuthScreen.dart';
 import 'package:shop/view/CartScreen.dart';
 import 'package:shop/view/OrdersScreen.dart';
 import 'package:shop/view/ProductCrudScreen.dart';
@@ -25,14 +29,23 @@ class MyApp extends StatelessWidget {
           create: (_) => new Auth(),
         ),
         ChangeNotifierProxyProvider<Auth, Products>(
-          create: (_) => new Products(null, []),
-          update: (ctx, auth, previousProducts) => new Products(auth.token, previousProducts.items),
+          create: (_) => new Products(null, null, []),
+          update: (ctx, auth, previousProducts) => new Products(
+            auth.token,
+            auth.userId,
+            previousProducts.items,
+          ),
         ),
         ChangeNotifierProvider(
           create: (_) => new Cart(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => new Orders(),
+        ChangeNotifierProxyProvider<Auth, Orders>(
+          create: (_) => new Orders(null, null, []),
+          update: (ctx, auth, previousOrders) => new Orders(
+            auth.token,
+            auth.userId,
+            previousOrders.items,
+          ),
         ),
       ],
       child: MaterialApp(
@@ -41,9 +54,11 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.red,
           fontFamily: 'Lato',
         ),
+        debugShowCheckedModeBanner: false,
         routes: {
           AppRoutes.HOME: (ctx) => SplashScreen(),
-          AppRoutes.AUTH_HOME: (ctx) => AuthOrHomeScreen(),
+          AppRoutes.AUTH_OR_HOME: (ctx) => AuthOrHomeScreen(),
+          AppRoutes.AUTH_HOME: (ctx) => AuthScreen(),
           AppRoutes.PRODUCT_HOME: (ctx) => ProductOverviewScreen(),
           AppRoutes.PRODUCT_DETAIL: (ctx) => ProductDetailScreen(),
           AppRoutes.CART: (ctx) => CartScreen(),

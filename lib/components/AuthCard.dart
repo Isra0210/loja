@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop/exceptions/AuthException.dart';
 import 'package:shop/providers/Auth.dart';
+import 'package:shop/utils/AppRoutes.dart';
+import '../exceptions/AuthException.dart';
 
 enum AuthMode { Signup, Login }
 
@@ -18,19 +19,19 @@ class _AuthCardState extends State<AuthCard> {
 
   final Map<String, String> _authData = {
     'email': '',
-    'password': '',
+    'senha': '',
   };
 
   void _showErrorDialog(String msg) {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('Algo deu errado!'),
+        title: Text("Ocorreu um erro"),
         content: Text(msg),
         actions: <Widget>[
           FlatButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text('Fechar'),
+            child: Text('OK'),
           ),
         ],
       ),
@@ -52,15 +53,11 @@ class _AuthCardState extends State<AuthCard> {
 
     try {
       if (_authMode == AuthMode.Login) {
-        await auth.login(
-          _authData["email"],
-          _authData["password"],
-        );
+        await auth.login(_authData["email"], _authData["password"]);
+        Navigator.of(context).pushReplacementNamed(AppRoutes.AUTH_OR_HOME);
       } else {
-        await auth.signup(
-          _authData["email"],
-          _authData["password"],
-        );
+        await auth.signup(_authData["email"], _authData["password"]);
+        Navigator.of(context).pushReplacementNamed(AppRoutes.AUTH_OR_HOME);
       }
     } on AuthException catch (error) {
       _showErrorDialog(error.toString());
@@ -88,15 +85,14 @@ class _AuthCardState extends State<AuthCard> {
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-
     return Card(
       elevation: 10.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
+      // shape: RoundedRectangleBorder(
+      //   borderRadius: BorderRadius.circular(15.0),
+      // ),
       child: Container(
-        height: _authMode == AuthMode.Login ? 260 : 340,
-        width: deviceSize.width * 0.75,
+        height: _authMode == AuthMode.Login ? 300 : 350,
+        width: deviceSize.width * 0.90,
         padding: EdgeInsets.all(15.0),
         child: Form(
           key: _form,
@@ -119,10 +115,9 @@ class _AuthCardState extends State<AuthCard> {
                 decoration: InputDecoration(labelText: 'Senha'),
                 obscureText: true,
                 controller: _passwordController,
-                keyboardType: TextInputType.emailAddress,
                 validator: (value) {
                   if (value.isEmpty || value.length <= 5) {
-                    return "Informe uma senha válida!";
+                    return "Informe inválida!";
                   }
                   return null;
                 },
@@ -142,6 +137,12 @@ class _AuthCardState extends State<AuthCard> {
                         }
                       : null,
                 ),
+              _authMode == AuthMode.Signup
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: 30.0),
+                      child: Text('Senha no mínimo 6 caractere!'),
+                    )
+                  : Container(),
               Spacer(),
               _isLoading
                   ? CircularProgressIndicator(
@@ -155,7 +156,7 @@ class _AuthCardState extends State<AuthCard> {
                   FlatButton(
                     onPressed: _switchAuthMode,
                     child: Text(
-                      _authMode != AuthMode.Login ? 'LOGIN' : 'REGISTRAR',
+                      _authMode == AuthMode.Login ? 'REGISTRAR' : 'LOGIN',
                     ),
                   ),
                   !_isLoading

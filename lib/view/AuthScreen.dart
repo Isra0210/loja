@@ -5,51 +5,32 @@ class AuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
-        body: Stack(
-          children: <Widget>[
-            Container(
-              color: Colors.black,
-            ),
-            Container(
-              width: double.infinity,
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    child: Image.asset(
-                      'assets/image/logo.png',
-                      width: double.infinity,
-                      height: 220,
-                    ),
+      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
+      body: Stack(
+        children: <Widget>[
+          Container(
+            color: Colors.black,
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 90),
+            width: double.infinity,
+            child: Column(
+              children: <Widget>[
+                AuthCard(),
+                Container(
+                  child: Image.asset(
+                    'assets/image/logo.png',
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    height: 220,
                   ),
-                  // Container(
-                  // transform: Matrix4.rotationZ(-20 * pi / 180)
-                  //   ..translate(-60.0), //cascate operation
-                  // decoration: BoxDecoration(
-                  //   borderRadius: BorderRadius.circular(25),
-                  //   color: Colors.black,
-                  //   boxShadow: [
-                  //     BoxShadow(
-                  //       blurRadius: 8,
-                  //       color: Colors.black,
-                  //       offset: Offset(0, 2),
-                  //     )
-                  //   ],
-                  // ),
-                  //   child: Text(
-                  //     'Camila',
-                  //     style: TextStyle(
-                  //         color: Colors.yellow,
-                  //         fontSize: 40,
-                  //         fontFamily: 'Anton',
-                  //         fontWeight: FontWeight.bold),
-                  //   ),
-                  // ),
-                  AuthCard(),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }
